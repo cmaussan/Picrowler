@@ -10,10 +10,10 @@ while( $depth <= $max_depth && @to_visit ) {
     print "crawling depth $depth\n";
     my @links = ();
     for my $url ( @to_visit ) {
-        push @already_visited, $url;
         if( my $content = get( $url ) ) {
             while ( $content =~ m/<a href="([^"]+)"/gi) { push @links, $1 }
         }
+        push @already_visited, $url;
         print "$url visited.\n";
     }
     @to_visit = ();
