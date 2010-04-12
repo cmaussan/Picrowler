@@ -58,6 +58,10 @@ while( $depth <= $max_depth && @to_visit ) {
 
     for my $url ( @to_visit ) {
 
+        my $sec = sleep( rand( 3 ) );
+        print "sleeping $sec sec\n";
+
+
         # On récupère la page
         if( my $content = get( $url ) ) {
 #            while ( $content =~ m/<a href="([^"]+)"/gi) { 
