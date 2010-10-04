@@ -78,7 +78,9 @@ while( $depth <= $max_depth && @to_visit ) {
             for my $link ( @{ $result->{ links } } ) {
                 my $link_uri = URI->new_abs( $link, $url );
 #                print "$link_uri\n";
-                push @links, { id => $id_source, url => $link_uri->as_string };
+                if( is_valid( $link_uri->as_string ) ) {
+                    push @links, { id => $id_source, url => $link_uri->as_string };
+                }
             }
 
            
@@ -105,7 +107,7 @@ while( $depth <= $max_depth && @to_visit ) {
         }
         
         push @to_visit, $url_to_check
-            if( $to_push && !grep{ $_ eq $url_to_check } @to_visit && is_valid( $url_to_check ) );			
+            if( $to_push && !grep{ $_ eq $url_to_check } @to_visit );			
 
         my $id_target = find_or_create_node( $url_to_check );
         $edges->{ "$id_source-$id_target" } ++ unless( $id_source == $id_target );
